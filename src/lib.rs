@@ -4,6 +4,9 @@ pub trait Sorter<T> {
         T: Ord;
 }
 
+mod bubblesort;
+mod insertionsort;
+
 pub struct StdSorter;
 impl<T> Sorter<T> for StdSorter {
     fn sort(&self, slice: &mut [T])
