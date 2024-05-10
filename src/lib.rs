@@ -1,5 +1,17 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
+pub trait Sorter<T> {
+    fn sort(&self, slice: &mut [T])
+    where
+        T: Ord;
+}
+
+pub struct StdSorter;
+impl<T> Sorter<T> for StdSorter {
+    fn sort(&self, slice: &mut [T])
+    where
+        T: Ord,
+    {
+        slice.sort();
+    }
 }
 
 #[cfg(test)]
@@ -7,8 +19,9 @@ mod tests {
     use super::*;
 
     #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+    fn std_works() {
+        let mut things = vec![5, 2, 3, 1, 4];
+        StdSorter.sort(&mut things);
+        assert_eq!(things, &[1, 2, 3, 4, 5])
     }
 }
